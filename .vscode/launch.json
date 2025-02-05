@@ -5,15 +5,19 @@
             "name": "Remote Debug (OpenOCD)",
             "type": "cortex-debug",
             "request": "attach",
-            "servertype": "external",  // Attach instead of launching OpenOCD
+            "servertype": "external",
             "gdbTarget": "pi5.local:3333",
-            "cwd": "/home/parallels/dev/project001",
-            "executable": "/home/parallels/dev/project001/001Add.elf",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/code/build/firmware.elf",
             "device": "stm32",
             "interface": "swd",
             "gdbPath": "/usr/bin/gdb-multiarch",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
             "preLaunchTask": "build",
-            "svdFile": "/home/parallels/dev/project001/STM32F4xx.svd",
+            "svdFile": "",
             "postAttachCommands": [
                 "monitor reset halt",
                 "load",

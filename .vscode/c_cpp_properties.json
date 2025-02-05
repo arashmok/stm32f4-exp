@@ -4,7 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/parallels/STM32CubeF4/Drivers/CMSIS/Include",
+                "${env:CMSIS_INCLUDE_PATH}",
                 "/home/parallels/STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
                 "/home/parallels/STM32CubeF4/Drivers/STM32F4xx_HAL_Driver/Inc"
             ],

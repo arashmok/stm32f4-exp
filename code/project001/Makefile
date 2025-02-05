@@ -9,10 +9,13 @@ OBJDUMP  = arm-none-eabi-objdump
 SIZE     = arm-none-eabi-size
 
 # Project Name
-PROJECT  = 001Add
+PROJECT  = firmware
 
 # Linker Script
 LDSCRIPT = STM32F407VGTX_FLASH.ld
+
+# Source Directories
+SRC_DIRS = Src Startup
 
 # C Source Files
 C_SOURCES = \
@@ -31,65 +34,59 @@ INCLUDES = \
     -I/home/parallels/STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include \
     -I/home/parallels/STM32CubeF4/Drivers/STM32F4xx_HAL_Driver/Inc
 
-# Compiler Flags (Ensuring Floating-Point Consistency)
-# CFLAGS: Compiler flags for the project
-# -mcpu=cortex-m4: Specifies the target CPU architecture (Cortex-M4)
-# -mthumb: Generates code for the Thumb instruction set
-# -g: Includes debugging information in the output
-# -O2: Optimizes the code for performance
-# -std=c11: Uses the C11 standard for compiling C code
-# -Wall: Enables all compiler's warning messages
-# -DSTM32F407xx: Defines the macro STM32F407xx for conditional compilation
-# -mfloat-abi=hard: Uses hardware floating-point instructions
-# -mfpu=fpv4-sp-d16: Specifies the floating-point unit (FPU) type (single-precision, 16 registers)
-CFLAGS = -mcpu=cortex-m4 -mthumb -g -O2 -std=c11 -Wall -DSTM32F407xx \
-         -mfloat-abi=hard -mfpu=fpv4-sp-d16
+# Compiler Flags
+CFLAGS   = -mcpu=cortex-m4 -std=gnu11 -g3 -O0 -Wall -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -ffunction-sections -fdata-sections -fstack-usage --specs=nano.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mthumb
 CFLAGS  += $(INCLUDES)
 
-# Linker Flags (Ensuring Floating-Point Consistency)
-LDFLAGS = -T$(LDSCRIPT) -Wl,-Map=$(PROJECT).map -Wl,--gc-sections \
-          -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
-          -Wl,--start-group -lc -lm -Wl,--end-group
+# Linker Flags
+LDFLAGS  = -T $(LDSCRIPT) -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mthumb
 
-# Convert source files to object files
-COBJS = $(C_SOURCES:.c=.o)
-AOBJS = $(ASM_SOURCES:.s=.o)
+# Output directory
+OUTDIR = ../build
+
+# Convert source files to object files (preserving directory structure)
+COBJS = $(C_SOURCES:%.c=$(OUTDIR)/%.o)
+AOBJS = $(ASM_SOURCES:%.s=$(OUTDIR)/%.o)
 OBJS  = $(COBJS) $(AOBJS)
 
+# Ensure build subdirectories exist
+$(shell mkdir -p $(OUTDIR)/Src $(OUTDIR)/Startup)
+
 # Targets
-all: $(PROJECT).elf
+all: $(OUTDIR)/$(PROJECT).elf
 
 # Link .o files to create .elf file
-$(PROJECT).elf: $(OBJS)
+$(OUTDIR)/$(PROJECT).elf: $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^
 	@echo "Linked $^ to create $@"
 
-# Compile C source files
-%.o: %.c
+# Compile C source files (preserving subdirectories)
+$(OUTDIR)/%.o: %.c
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Assemble .s files
-%.o: %.s
+# Assemble .s files (preserving subdirectories)
+$(OUTDIR)/%.o: %.s
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create HEX file
-hex: $(PROJECT).elf
-	$(OBJCOPY) -O ihex $< $(PROJECT).hex
-	@echo "Generated HEX file: $(PROJECT).hex"
+hex: $(OUTDIR)/$(PROJECT).elf
+	$(OBJCOPY) -O ihex $< $(OUTDIR)/$(PROJECT).hex
+	@echo "Generated HEX file: $(OUTDIR)/$(PROJECT).hex"
 
 # Create BIN file
-bin: $(PROJECT).elf
-	$(OBJCOPY) -O binary $< $(PROJECT).bin
-	@echo "Generated BIN file: $(PROJECT).bin"
+bin: $(OUTDIR)/$(PROJECT).elf
+	$(OBJCOPY) -O binary $< $(OUTDIR)/$(PROJECT).bin
+	@echo "Generated BIN file: $(OUTDIR)/$(PROJECT).bin"
 
 # Show binary size
-size: $(PROJECT).elf
+size: $(OUTDIR)/$(PROJECT).elf
 	$(SIZE) $<
 
 # Clean up build files
 clean:
-	rm -f $(COBJS) $(AOBJS) $(PROJECT).elf \
-	      $(PROJECT).hex $(PROJECT).bin $(PROJECT).map
+	rm -rf $(OUTDIR)
 	@echo "Cleaned project files."
 
 .PHONY: all clean hex bin size

@@ -9,3 +9,11 @@
 
 # Ignore map files (linker output files)
 *.map
+
+# Ignore build output directory
+build/
+
+# Ignore STM32CubeF4 folder
+STM32CubeF4/
+
+
