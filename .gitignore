@@ -1,3 +1,11 @@
+# This .gitignore file specifies files and directories that should be ignored by Git.
+# These files are typically generated during the build process and do not need to be tracked.
+
+# Ignore ELF files (Executable and Linkable Format)
 *.elf
+
+# Ignore object files (compiled source files)
 *.o
+
+# Ignore map files (linker output files)
 *.map
