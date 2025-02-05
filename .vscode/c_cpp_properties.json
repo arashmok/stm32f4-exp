@@ -4,9 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${env:CMSIS_INCLUDE_PATH}",
-                "/home/parallels/STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
-                "/home/parallels/STM32CubeF4/Drivers/STM32F4xx_HAL_Driver/Inc"
+                "${workspaceFolder}/STM32CubeF4/Drivers/CMSIS/Include",
+                "${workspaceFolder}/STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+                "${workspaceFolder}/STM32CubeF4/Drivers/STM32F4xx_HAL_Driver/Inc"
             ],
             "defines": [
                 "STM32F407xx"  // Define the target STM32 microcontroller
