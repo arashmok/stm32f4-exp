@@ -30,9 +30,9 @@ ASM_SOURCES = \
 # Include Directories
 INCLUDES = \
     -IInc \
-    -I/home/parallels/STM32CubeF4/Drivers/CMSIS/Include \
-    -I/home/parallels/STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include \
-    -I/home/parallels/STM32CubeF4/Drivers/STM32F4xx_HAL_Driver/Inc
+	-I${workspaceFolder}/STM32CubeF4/Drivers/CMSIS/Include \
+    -I${workspaceFolder}/STM32CubeF4/Drivers/CMSIS/Device/ST/STM32F4xx/Include \
+    -I${workspaceFolder}/STM32CubeF4/Drivers/STM32F4xx_HAL_Driver/Inc
 
 # Compiler Flags
 CFLAGS   = -mcpu=cortex-m4 -std=gnu11 -g3 -O0 -Wall -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -ffunction-sections -fdata-sections -fstack-usage --specs=nano.specs -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mthumb
