@@ -91,22 +91,37 @@ At address `0x200009b4`, if `int x = 5`, the memory view will show:
 
 ### Memory Locations for Variables
 
-In the following visual, the variable `int x = 5` is stored starting at address `0x200009b4`. The debugger shows:
+In the source code from **Project001**, the variables `x`, `y`, and `z` are defined and manipulated. According to the Watch Pane in the debugging session, their memory locations and initial values are as follows:
 
-![Memory Debugging](uploaded_file_path_1)
+#### Variable `x`
+- **Address**: `0x200009b4`
+- **Initial Value**: `5 (0x05)`
 
-- The memory for `x` spans from `0x200009b4` to `0x200009b7`.
-- The value `05 00 00 00` represents `5` in little-endian format.
+![Variable x](/docs/images/001/varX.jpg)
 
-### Interpreting Memory
+#### Variable `y`
+- **Address**: `0x200009b8`
+- **Initial Value**: `7 (0x07)`
 
-The red rectangle in the following visual highlights the memory range occupied by the `int` variable:
+![Variable y](/docs/images/001/varY.jpg)
 
-![Highlighted Memory](/docs/images/highlighted_memory.jpg)
+#### Variable `z`
+- **Address**: `0x20000a18`
+- **Initial Value**: `0 (0x00)`
 
-- Each row represents **32 bytes**.
-- The offset guide (orange numbers) helps locate specific addresses within each row.
-- The `x` variable's 4 bytes (`05 00 00 00`) are correctly highlighted.
+![Variable z](/docs/images/001/varZ.jpg)
+
+### Changing Values in Memory
+
+After stepping into the next line in the code (`z = x + y`), the value of `z` updates to the result of the addition:
+
+#### New Value of `z`
+- **Address**: `0x20000a18`
+- **Updated Value**: `12 (0x0C)`
+
+![Updated Variable z](/docs/images/001/varZ_newvalue.jpg)
+
+This demonstrates how the memory content changes dynamically as the program executes.
 
 ---
 
