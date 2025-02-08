@@ -141,18 +141,4 @@ sudo ufw allow 3333/tcp
 sudo ufw allow 4444/tcp
 sudo ufw allow 6666/tcp
 ```
-
-## Conclusion
-By following these steps, you will have a fully functional debugging environment for the STM32F4 on an Ubuntu system, with OpenOCD running as a systemd service for automatic startup.
-
-## License
-This guide is open-source and distributed under the MIT License.
-
-## Contributing
-If you'd like to improve this guide, feel free to submit a pull request!
-
 ---
-
-**Maintainer:** armok
-
-For any questions or feedback, open an issue in the GitHub repository.

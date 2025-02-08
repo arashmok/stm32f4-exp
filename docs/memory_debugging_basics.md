@@ -130,5 +130,3 @@ This demonstrates how the memory content changes dynamically as the program exec
 Debugging memory is essential for understanding how your program interacts with the hardware. By using tools like the VSCode Memory Viewer and Watch Pane:
 - You can locate variable addresses.
 - You can inspect memory values and understand data formats (e.g., little-endian).
-
-This guide should help you get started with memory debugging for STM32F4. Let me know if you need further details or examples!
