@@ -1,15 +1,15 @@
 {
     "version": "2.0.0",
     "tasks": [
-        {
-            "label": "build",
-            "type": "shell",
-            "command": "make -C ${workspaceFolder}",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
+        // {
+        //     "label": "build",
+        //     "type": "shell",
+        //     "command": "make -C ${workspaceFolder}",
+        //     "group": {
+        //         "kind": "build",
+        //         "isDefault": true
+        //     }
+        // },
         {
             "type": "cppbuild",
             "label": "C/C++: gcc build active file",
